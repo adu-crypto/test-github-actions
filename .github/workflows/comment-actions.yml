@@ -1,0 +1,29 @@
+name: test
+
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+      - release/**
+  issue_comment:
+    types: [created, edited]
+
+jobs:
+  test:
+    name: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check if organization member
+        uses: JamesSingleton/is-organization-member@main
+        id: checkMember
+        with:
+          username: ${{ github.actor }}
+          organization: crypto-org-chain
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: comment-actions
+        uses: allthatjazzleo/actions-pull-request-add-comment@master
+        if: github.event_name == 'issue_comment' && github.event.comment.body == '/runsim' && ${{ steps.checkTeamMember.outputs.result == true }}
+        with:
+          message: 'yes you are a member'
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
