@@ -21,6 +21,10 @@ jobs:
           username: ${{ github.actor }}
           organization: crypto-org-chain
           token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Log Result
+        run: |
+          result=${{steps.checkMember.outputs.result}}
+          echo "$result"
       - name: comment-actions
         if: |
           github.event_name == 'issue_comment' && github.event.comment.body == '/runsim' && steps.checkMember.outputs.result == true
