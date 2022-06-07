@@ -23,7 +23,13 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
       - name: comment-actions
         uses: allthatjazzleo/actions-pull-request-add-comment@master
-        if: github.event_name == 'issue_comment' && github.event.comment.body == '/runsim' && ${{ steps.checkTeamMember.outputs.result == true }}
+        if: github.event_name == 'issue_comment' && github.event.comment.body == '/runsim' && ${{ steps.checkMember.outputs.result == true }}
         with:
           message: 'yes you are a member'
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: comment-actions
+        uses: allthatjazzleo/actions-pull-request-add-comment@master
+        if: github.event_name == 'issue_comment' && github.event.comment.body == '/runsim' && ${{ steps.checkMember.outputs.result == false }}
+        with:
+          message: 'Oh no you are not a member'
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
