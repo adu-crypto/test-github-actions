@@ -26,11 +26,11 @@ jobs:
           result=${{steps.checkMember.outputs.result}}
           echo "$result"
       - name: comment-actions
-        if: |
-          github.event_name == 'issue_comment' && github.event.comment.body == '/runsim' && ${{steps.checkMember.outputs.result}} == 'true'
+        if: >-
+          github.event_name == 'issue_comment' && github.event.comment.body == '/runsim' && ${{steps.checkMember.outputs.result}}
         run: echo 'you are allowed to run sim'
       - name: comment-actions
-        if: |
-          github.event_name == 'issue_comment' && github.event.comment.body == '/runsim' && ${{steps.checkMember.outputs.result}} == 'false'
+        if: >-
+          github.event_name == 'issue_comment' && github.event.comment.body == '/runsim' && ${{steps.checkMember.outputs.result}}
         run: echo 'not allowed'
 
