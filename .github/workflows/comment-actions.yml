@@ -25,13 +25,6 @@ jobs:
         uses: allthatjazzleo/actions-pull-request-add-comment@master
         if: github.event_name == 'issue_comment' && github.event.comment.body == '/runsim' && ${{ steps.checkMember.outputs.result == true }}
         with:
-          message: 'you are trying to run simulation'
+          message: 'you are allowed to run simulation'
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: echo 'you are a member of crypto.org'
-      - name: comment-actions
-        uses: allthatjazzleo/actions-pull-request-add-comment@master
-        if: github.event_name == 'issue_comment' && github.event.comment.body == '/runsim' && ${{ steps.checkMember.outputs.result == false }}
-        with:
-          message: 'you are trying to run simulation'
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: echo 'Oh no you are not a member'
+
