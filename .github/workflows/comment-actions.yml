@@ -26,11 +26,17 @@ jobs:
           result=${{steps.checkMember.outputs.result}}
           echo "$result"
       - name: comment-actions
+        uses: allthatjazzleo/actions-pull-request-add-comment@master
         if: >-
           github.event_name == 'issue_comment' && github.event.comment.body == '/runsim' && steps.checkMember.outputs.result == 'true'
-        run: echo 'you are allowed to run sim'
+        with:
+          message: 'yes you are a member'
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: comment-actions
+        uses: allthatjazzleo/actions-pull-request-add-comment@master
         if: >-
           github.event_name == 'issue_comment' && github.event.comment.body == '/runsim' && steps.checkMember.outputs.result == 'false'
-        run: echo 'not allowed'
+        with:
+          message: 'you are not allowed'
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
